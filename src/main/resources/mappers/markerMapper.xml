@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.MarkerDAO">
+	
+	<select id = "AdminMarkerList" resultType = "com.meta.dto.MarkerDTO">
+		select * from META.marker where area_code = #{area_code} 
+	</select>
+	
+	<select id = "AdminMarkerSearch" resultType = "com.meta.dto.MarkerDTO">
+		select * from META.marker where area_code = #{area_code} and marker_no = #{marker_no} 
+	</select>
+	
+	<select id = "MarkerFindValue" resultType = "com.meta.dto.MarkerDTO">
+		select
+			area_code,
+			zone_name,
+			path_marker,
+			section_name,
+			path_marker,
+			marker_key,
+			marker_no,
+			marker_detail,
+			x,
+			y,
+			z,
+			creation_datetime
+		from marker where marker_no = #{marker_no}
+	</select>
+
+	<insert id="MarkerRegister">
+		insert into marker(
+			area_code,
+			zone_name,
+			section_name,
+			marker_key,
+			path_marker,
+			marker_no,
+			marker_detail,
+			x,
+			y,
+			z
+		)
+		values(
+			#{area_code},
+			#{zone_name},
+			#{section_name},
+			#{marker_key},
+			#{path_marker},
+			#{marker_no},
+			#{marker_detail},
+			#{x},
+			#{y},
+			#{z}
+		)
+	</insert>
+	
+	<update id = "MarkerUpdate">
+		update marker set
+			area_code = #{area_code},
+			zone_name = #{zone_name},
+			section_name = #{section_name},
+			x = #{x},
+			y = #{y},
+			z = #{z},
+			marker_detail = #{marker_detail}
+		where marker_no = #{marker_no}
+	</update>
+	
+	<delete id = "MarkerDelete">
+		delete from marker where marker_no = #{marker_no}
+	</delete>
+	
+	<update id = "MarkerImgDelete">
+		update marker set
+			path_marker = NULL
+		where marker_no = #{marker_no}
+	</update>
+</mapper>

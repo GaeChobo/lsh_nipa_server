@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.FacilityDAO">
+	<insert id = "CsvDataUpload">
+		insert into facility(
+			owner_user_id,
+			area_code,
+			zone_name,
+			section_name,
+			group_no,
+			`order`,
+			x1,
+			y1,
+			el1,
+			z1,
+			real_z1,
+			hole_depth,
+			x2,
+			y2,
+			z2,
+			el2,
+			lat1,
+			lon1,
+			lat2,
+			lon2,
+			`name`,
+			width,
+			height,
+			diameter,
+			type,
+			category,
+			version_drawing,
+			object_key
+		)
+		values(
+			#{owner_user_id},
+			#{area_code},
+			#{zone_name},
+			#{section_name},
+			#{group_no},
+			#{order},
+			#{x1},
+			#{y1},
+			#{el1},
+			#{z1},
+			#{real_z1},
+			#{hole_depth},
+			#{x2},
+			#{y2},
+			#{z2},
+			#{el2},
+			#{lat1},
+			#{lon1},
+			#{lat2},
+			#{lon2},
+			#{name},
+			#{width},
+			#{height},
+			#{diameter},
+			#{type},
+			#{category},
+			#{version_drawing},
+			#{object_key}
+		)
+	</insert>
+	
+	<select id = "sewage_pipe_List" resultType = "Map">
+		select * from META.facility where `type` = 2 and category = 2
+	</select>
+	
+	<select id = "sewage_manhole_List" resultType = "Map">
+		select * from META.facility where `type` = 1 and category = 2
+	</select>
+	
+	<select id = "dyke_List" resultType = "Map">
+		select * from META.facility where `type` = 4 and category = 3
+	</select>
+
+	<select id = "road_List" resultType = "Map">
+		select * from META.facility where `type` = 3 and category = 1
+	</select>	
+	
+	<select id = "sidewalk_List" resultType = "Map">
+		select * from META.facility where `type` = 3 and category = 2
+	</select>
+	
+	<select id = "block_List" resultType = "Map">
+		select * from META.facility where `type` = 3 and category = 5
+	</select>
+	
+	<select id = "facility_List" resultType = "Map">
+		select * from META.facility where `type` = 5 and category = 26
+	</select>
+
+	<select id = "drinking_fountain_List" resultType = "Map">
+		select * from META.facility where `type` = 3 and category = 4
+	</select>
+
+	<select id = "uprain_pipe_List" resultType = "Map">
+		select * from META.facility where `type` = 2 and category = 1
+	</select>	
+
+	<select id = "uprain_manhole_List" resultType = "Map">
+		select * from META.facility where `type` = 1 and category = 1
+	</select>	
+
+	<select id = "bicycle_road_List" resultType = "Map">
+		select * from META.facility where `type` = 3 and category = 3
+	</select>	
+	
+	<select id = "road_boundary_stone_List" resultType = "Map">
+		select * from META.facility where `type` = 4 and category = 1
+	</select>		
+	
+	<select id = "lane_List" resultType = "Map">
+		select * from META.facility where `type` = 6 and category = 1
+	</select>
+	
+	<select id = "RequestInterUserList"	resultType = "Map">
+		select * from META.facility where owner_user_id = #{owner_user_id} and area_code = #{area_code} and version_drawing = #{version_drawing}
+	</select>
+	
+	<select id = "RequestInterUserNum" resultType = "int">
+		select count(*) from META.facility where owner_user_id = #{owner_user_id} and area_code = #{area_code} and version_drawing = #{version_drawing}
+	</select>							
+</mapper>

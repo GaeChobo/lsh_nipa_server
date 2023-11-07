@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.CctvDAO">
+
+	<delete id = "CCTVAllDelete">
+		delete from cctv
+	</delete>
+
+	<select id = "CCTVAllList" resultType = "com.meta.dto.CctvDTO">
+		select * from cctv
+	</select>
+
+	<insert id = "RegisterCCTV"> 
+		insert into cctv(
+			area_code,
+			zone_name,
+			section_name,
+			cctv_no,
+			path_still_cut,
+			x,
+			y,
+			z,
+			object_key
+		)values (
+			#{area_code},
+			#{zone_name},
+			#{section_name},
+			#{cctv_no},
+			#{path_still_cut},
+			#{x},
+			#{y},
+			#{z},
+			#{object_key}
+		)
+	</insert>
+	
+	<select id = "CCTVImageFindList" resultType = "String">
+		select path_still_cut from cctv where cctv_no = #{cctv_no} order by creation_datetime desc limit 1
+	</select>
+	
+	<select id = "CCTV_NO1_Find" resultType = "com.meta.dto.CctvDTO">
+		SELECT
+			*
+		FROM 
+		META.cctv
+		where cctv_no = 'ZONE1_SECTION8_CCTV_NO1' and area_code = #{area_code}
+		order by creation_datetime desc LIMIT 1	
+	</select>
+	
+	<select id = "CCTV_NO2_Find" resultType = "com.meta.dto.CctvDTO">
+		SELECT
+			*
+		FROM 
+		META.cctv
+		where cctv_no = 'ZONE1_SECTION8_CCTV_NO2' and area_code = #{area_code}
+		order by creation_datetime desc LIMIT 1
+	</select>
+	
+	<select id = "CCTV_NO3_Find" resultType = "com.meta.dto.CctvDTO">
+		SELECT
+			*
+		FROM 
+		META.cctv
+		where cctv_no = 'ZONE1_SECTION8_CCTV_NO3' and area_code = #{area_code}
+		order by creation_datetime desc LIMIT 1
+	</select>
+	
+	<select id = "CCTV_NO4_Find" resultType = "com.meta.dto.CctvDTO">
+		SELECT
+			*
+		FROM 
+		META.cctv
+		where cctv_no = 'ZONE1_SECTION8_CCTV_NO4' and area_code = #{area_code}
+		order by creation_datetime desc LIMIT 1
+	</select>
+	
+	<select id = "AdminCctvSearch" resultType = "com.meta.dto.CctvDTO">
+		SELECT
+			*
+		FROM 
+		META.cctv
+		where cctv_no = #{cctv_no} and area_code = #{area_code}
+		order by creation_datetime desc LIMIT 1
+	</select>	
+</mapper>

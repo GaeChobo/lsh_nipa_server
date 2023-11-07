@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.InterferenceDAO">
+	<insert id = "RegisterInterferenceDetail">
+		insert into interference_detail(
+			user_id,
+			area_code,
+			version_drawing,
+			version_interference
+		)
+		values(
+			#{user_id},
+			#{area_code},
+			#{version_drawing},
+			#{version_interference}
+		)
+	</insert>
+	
+	<update id = "UpdateInterferenceDetail">
+		update interference_detail set
+			path_result_interference = #{path_result_interference},
+			interference_point  = #{interference_point }
+		where version_interference = #{version_interference}
+	</update>
+	
+	<select id = "FindVersionRequest" resultType = "String">
+		select version_drawing from interference_detail where version_interference = #{version_interference}
+	</select>
+	
+	<insert id = "RegisterInterferenceLocation">
+		insert into interference_location(
+			version_interference,
+			x,
+			y,
+			z
+		)values(
+			#{version_interference},
+			#{x},
+			#{y},
+			#{z}
+		)		
+	</insert>
+	
+	<select id = "DownloadLinkInterferenceCSV" resultType = "String">
+		select path_result_interference from interference_detail where version_interference = #{version_interference}
+	</select>
+	
+	<insert id = "RegisterFinalInterference">
+		insert into interference_final_drawing(
+			user_id,
+			area_code,
+			version_interference
+		)values(
+			#{user_id},
+			#{area_code},
+			#{version_interference}
+		)
+	</insert>
+	
+	<select id = "interferenceChoiceList" resultType = "Map">
+		select
+			request_preprocessing.request_title,
+		    request_preprocessing.version_drawing,
+		    interference_detail.version_interference 
+		from
+			request_preprocessing
+		inner join interference_detail on request_preprocessing.version_drawing  = interference_detail.version_drawing
+		where interference_detail.user_id = #{user_id} and interference_detail.area_code = #{area_code}
+	</select>
+	
+	<delete id = "DeleteFinalInterference">
+		delete from interference_final_drawing 
+		where user_id = #{user_id} and area_code = #{area_code} and version_interference = #{version_interference}
+	</delete>		
+</mapper>

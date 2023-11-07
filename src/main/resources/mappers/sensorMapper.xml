@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sensor.dao.SensorDAO">
+	
+	<select id = "SensorStatTest" resultType = "com.meta.dto.SensorDTO">
+		select ss_ID, ss_Stat, ss_Value, Mdfy_Dttm  from mkadams.r_sensor_dat use index (PRIMARY) where ss_Stat = '01'
+	</select>
+	
+	<select id = "ValueSensorList" resultType = "com.meta.dto.SensorDTO">
+		select ss_ID, ss_Stat, ss_Value, Mdfy_Dttm  from r_sensor_dat use index (PRIMARY) where (Mdfy_Dttm between #{Hour1time} and #{Hour2time})
+	</select>
+	
+	<select id = "AD37C01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37C01'
+	</select>
+	
+	<select id = "AA10C01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10C01'
+	</select>
+
+	<select id = "AD37B05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37B05'
+	</select>
+	
+	<select id = "AD37B03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37B03'
+	</select>
+	
+	<select id = "AD37B01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37B01'
+	</select>
+
+	<select id = "AD37B02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37B02'
+	</select>
+	
+	<select id = "AD37B04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37B04'
+	</select>
+	
+	<select id = "AA12G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12G01'
+	</select>	
+	
+	<select id = "AB28G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB28G01'
+	</select>		
+	
+	<select id = "AA12G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12G02'
+	</select>	
+	
+	<select id = "AB28G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB28G02'
+	</select>		
+
+	<select id = "AA10G03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10G03'
+	</select>		
+	
+	<select id = "AA10G04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10G04'
+	</select>
+	
+	<select id = "AA14G05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14G05'
+	</select>		
+
+	<select id = "AA14G06" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14G06'
+	</select>
+	
+	<select id = "AA14G07" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14G07'
+	</select>
+	
+	<select id = "AA14G08" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14G08'
+	</select>
+
+	<select id = "AA16G09" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16G09'
+	</select>	
+
+	<select id = "AA16G10" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16G10'
+	</select>	
+
+	<select id = "AA16G11" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16G11'
+	</select>
+	
+	<select id = "AA16G12" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16G12'
+	</select>		
+	
+	<select id = "AA12G03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12G03'
+	</select>		
+
+	<select id = "AA12G05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12G05'
+	</select>	
+
+	<select id = "AA12G06" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12G06'
+	</select>	
+
+	<select id = "AA12G07" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12G07'
+	</select>	
+
+	<select id = "AA14G09" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14G09'
+	</select>
+
+	<select id = "AA15G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15G01'
+	</select>
+
+	<select id = "AA15G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15G02'
+	</select>
+	
+	<select id = "AC01G04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01G04'
+	</select>	
+
+	<select id = "AD35G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD35G01'
+	</select>	
+
+	<select id = "AD35G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD35G02'
+	</select>	
+
+	<select id = "AD35G03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD35G03'
+	</select>	
+
+	<select id = "AD35G04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD35G04'
+	</select>
+	
+	<select id = "AD36G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD36G01'
+	</select>			
+	
+	<select id = "AD36G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD36G02'
+	</select>			
+
+	<select id = "AD36G03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD36G03'
+	</select>				
+	
+	<select id = "AD36G04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD36G04'
+	</select>	
+
+	<select id = "AD37G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37G01'
+	</select>	
+
+	<select id = "AD37G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37G02'
+	</select>	
+
+	<select id = "AD37G03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37G03'
+	</select>	
+
+	<select id = "AD37G04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37G04'
+	</select>
+
+	<select id = "AD37A06" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37A06'
+	</select>
+
+	<select id = "AD37A05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37A05'
+	</select>
+
+	<select id = "AA12L01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12L01'
+	</select>
+
+	<select id = "AB23L01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB23L01'
+	</select>
+	
+	<select id = "AC01L01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01L01'
+	</select>	
+
+	<select id = "AA12L02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12L02'
+	</select>
+
+	<select id = "AB23L02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB23L02'
+	</select>
+
+	<select id = "AC01L02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01L02'
+	</select>
+
+	<select id = "AA14L03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14L03'
+	</select>
+
+	<select id = "AB23L03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB23L03'
+	</select>
+
+	<select id = "AC01L03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01L03'
+	</select>
+
+	<select id = "AA16L04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L04'
+	</select>
+
+	<select id = "AB23L04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB23L04'
+	</select>
+
+	<select id = "AC01L04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01L04'
+	</select>
+
+	<select id = "AA16L05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L05'
+	</select>
+
+	<select id = "AB23L12" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB23L12'
+	</select>
+
+	<select id = "AB24L05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB24L05'
+	</select>
+	
+	<select id = "AA16L06" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L06'
+	</select>	
+
+	<select id = "AB23L13" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB23L13'
+	</select>
+
+	<select id = "AB24L06" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB24L06'
+	</select>
+
+	<select id = "AA16L07" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L07'
+	</select>
+
+	<select id = "AB24L07" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB24L07'
+	</select>
+
+	<select id = "AA16L08" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L08'
+	</select>
+			
+	<select id = "AB24L08" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB24L08'
+	</select>			
+
+	<select id = "AA16L09" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L09'
+	</select>	
+
+	<select id = "AB24L09" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB24L09'
+	</select>	
+
+	<select id = "AA16L10" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L10'
+	</select>	
+
+	<select id = "AB31L10" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB31L10'
+	</select>	
+
+	<select id = "AA16L11" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L11'
+	</select>	
+
+	<select id = "AB31L11" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB31L11'
+	</select>	
+
+	<select id = "AA16L12" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA16L12'
+	</select>
+
+	<select id = "AA15L13" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15L13'
+	</select>
+
+	<select id = "AA15L14" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15L14'
+	</select>
+
+	<select id = "AB27L14" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L14'
+	</select>
+
+	<select id = "AA15L15" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15L15'
+	</select>
+
+	<select id = "AB27L15" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L15'
+	</select>
+
+	<select id = "AA15L16" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15L16'
+	</select>
+
+	<select id = "AB32L16" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB32L16'
+	</select>
+
+	<select id = "AA15L17" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA15L17'
+	</select>
+
+	<select id = "AB32L17" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB32L17'
+	</select>
+
+	<select id = "AA20L18" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA20L18'
+	</select>
+
+	<select id = "AB28L18" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB28L18'
+	</select>
+
+	<select id = "AA14L19" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA14L19'
+	</select>
+
+	<select id = "AB28L19" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB28L19'
+	</select>
+
+	<select id = "AA12L20" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12L20'
+	</select>
+
+	<select id = "AB28L20" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB28L20'
+	</select>
+
+	<select id = "AB28L21" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB28L21'
+	</select>
+
+	<select id = "AB27L22" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L22'
+	</select>
+
+	<select id = "AB27L23" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L23'
+	</select>
+
+	<select id = "AB27L24" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L24'
+	</select>
+	
+	<select id = "AB27L25" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L25'
+	</select>	
+
+	<select id = "AB22L01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB22L01'
+	</select>	
+
+	<select id = "AB22L02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB22L02'
+	</select>	
+
+	<select id = "AB22L03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB22L03'
+	</select>	
+
+	<select id = "AB22L04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB22L04'
+	</select>
+
+	<select id = "AB22L05" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB22L05'
+	</select>
+
+	<select id = "AB27L21" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27L21'
+	</select>
+
+	<select id = "AC08L01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC08L01'
+	</select>
+			
+	<select id = "AC08L02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC08L02'
+	</select>			
+
+	<select id = "AA10L01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10L01'
+	</select>	
+
+	<select id = "AA10L02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10L02'
+	</select>	
+
+	<select id = "AA10F06" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10F06'
+	</select>	
+
+	<select id = "AD37A02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37A02'
+	</select>	
+
+	<select id = "AD37A01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37A01'
+	</select>	
+
+	<select id = "AA12P01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12P01'
+	</select>	
+
+	<select id = "AB31P01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB31P01'
+	</select>
+
+	<select id = "AC01G01" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01G01'
+	</select>
+
+	<select id = "AA12P02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA12P02'
+	</select>
+
+	<select id = "AB27P02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AB27P02'
+	</select>
+
+	<select id = "AC01G02" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AC01G02'
+	</select>
+
+	<select id = "AA10P03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AA10P03'
+	</select>
+
+	<select id = "AD37A04" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37A04'
+	</select>
+			
+	<select id = "AD37A03" resultType = "com.meta.dto.RSensorDTO">
+		select ss_ID, ss_Stat, ss_Value, MAX(Mdfy_Dttm) as Mdfy_Dttm from r_sensor_dat use index (PRIMARY) where ss_ID = 'AD37A03'
+	</select>			
+			
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.AssignmentDAO">
+
+	<select id = "checkAreaCode" resultType = "int">
+		select count(*) from area_info where area_code = #{area_code}
+	</select>
+	
+	<select id = "FindExTime" resultType = "Date">
+		select expiration_datetime from assignment_meta 
+		where area_code = #{area_code} and user_id = #{user_id}
+	</select>
+	
+	<select id = "FindPathImg" resultType = "String">
+		select path_img from area_info where area_code = #{area_code}
+	</select>
+	
+	<delete id = "unassignUser">
+		delete from assignment_meta
+		where user_id = #{user_id} and area_code = #{area_code}
+	</delete>
+	
+	<update id = "chageUserType">
+		update assignment_meta set
+			user_type = #{user_type}
+		where area_code = #{area_code} and user_id = #{user_id}
+	</update>
+	
+	<select id = "CompanyNameFindList" resultType = "Map">
+		select
+			owner_name,
+			area_address,
+			area_code,
+			construction_name
+		from area_info
+		where company_name = #{company_name}
+	</select>
+	
+	<select id = "loadingUserData1" resultType = "com.meta.dto.AreaDTO">
+		select 
+			construction_name,
+			area_code,
+			area_type,
+			area_address,
+			creation_datetime,
+			company_admin
+		from area_info
+		where area_code = #{area_code}
+	</select>
+	
+	<select id = "loadingUserData2" resultType = "Map">
+		select
+			assignment_meta.user_id,
+			assignment_meta.user_type,
+			`user`.company_admin
+		from META.assignment_meta
+		inner join META.`user` on `user`.user_id = assignment_meta.user_id
+		where `user`.user_id Like '%${user_id}%' and area_code = #{area_code}
+	</select>
+	
+	<select id = "loadingUserData3" resultType = "Map">
+		select
+			assignment_meta.user_id,
+			assignment_meta.user_type,
+			`user`.company_admin
+		from META.assignment_meta
+		inner join META.`user` on `user`.user_id = assignment_meta.user_id
+		where area_code = #{area_code}
+	</select>
+
+
+	<select id = "MoveloadingUserData" resultType = "com.meta.dto.AreaDTO">
+		select 
+			construction_name,
+			area_code,
+			area_type,
+			area_address,
+			creation_datetime,
+			company_admin
+		from area_info
+		where area_code = #{area_code}
+	</select>
+	<select id = "MoveloadingUserData2" resultType = "Map">
+		select
+			assignment_meta.user_id,
+			assignment_meta.user_type,
+			`user`.company_admin
+		from META.assignment_meta
+		inner join META.`user` on `user`.user_id = assignment_meta.user_id
+		where area_code = #{area_code}
+	</select>
+	
+	<select id = "AdminCompanyFind" resultType = "Integer">
+		select
+			company_admin
+		from user
+		where user_id = #{user_id}
+	</select>
+	
+	
+	<update id = "updateAssginImage">
+		update assignment_meta set
+			path_img = #{path_img}
+		where area_code = #{area_code}
+	</update>
+	
+	<update id = "updateAreaImage">
+		update area_info set
+			path_img = #{path_img}
+		where area_code = #{area_code}
+	</update>
+	
+	<update id = "updateAreaInfo">
+		update area_info set
+			construction_detail = #{construction_detail},
+			owner_name = #{owner_name},
+			owner_contact = #{owner_contact},
+			supervisor_name = #{supervisor_name},
+			supervisor_contact = #{supervisor_contact},
+			contractor_name = #{contractor_name},
+			contractor_contact = #{contractor_contact},
+			period_start = #{period_start},
+			period_end = #{period_end},
+			status = #{status},
+			facility_type = #{facility_type}
+		where area_code = #{area_code}
+	</update>
+	
+	<select id = "checkConstructionName" resultType = "int">
+		select count(*) from area_info where construction_name = #{construction_name}
+	</select>
+	
+	<select id = "loadingAreaInfo" resultType = "com.meta.dto.AreaDTO">
+		select
+			*
+		from area_info
+		where company_name = #{company_name}
+	</select>
+	
+	<insert id = "createNewAreaInfo">
+		insert into area_info(
+			construction_name,
+			area_code,
+			area_type,
+			area_address,
+			construction_detail,
+			path_img,
+			owner_name,
+			owner_contact,
+			company_name,
+			company_admin
+		)values(
+			#{construction_name},
+			#{area_code},
+			#{area_type},
+			#{area_address},
+			#{construction_detail},
+			#{path_img},
+			#{owner_name},
+			#{owner_contact},
+			#{company_name},
+			#{company_admin}
+		)
+	</insert>
+	
+	<insert id = "Registerassginment">
+		insert into assignment_meta(
+			user_id,
+			area_code,
+			path_img,
+			user_type,
+			expiration_datetime
+		) values(
+			#{user_id},
+			#{area_code},
+			#{path_img},
+			#{user_type},
+			#{expiration_datetime}
+		)
+	</insert>
+	
+	<select id = "AdminAreaList" resultType = "String">
+		select
+			area_code
+		from META.area_info
+		where company_name = #{company_name}
+	</select>
+	
+	<select id = "AdminAreaInfo" resultType = "Map">
+		select
+			area_code,
+			construction_name,
+			area_address,
+			owner_name
+		from META.area_info 
+		where area_code Like '%${area_code}%'  
+	</select>
+	
+	<select id = "Listassignment" resultType = "Map">
+		select 
+			assignment_meta.area_code,
+			assignment_meta.path_img,
+			assignment_meta.user_type,
+			area_info.construction_name
+		from META.assignment_meta inner join META.area_info on assignment_meta.area_code = area_info.area_code
+		where assignment_meta.user_id = #{user_id}
+	</select>
+	
+	<select id = "OwenerList" resultType = "Map">
+		select DISTINCT owner_name from META.area_info where owner_name Like '%${owner_name}%' 
+	</select>
+	
+	<select id = "OwenerSelectione" resultType = "Map">
+		select DISTINCT owner_name from META.area_info 
+	</select>
+	
+	<select id = "SelectionComplete" resultType = "Map">
+	select
+		assignment_meta.user_type,
+	    area_info.area_code,
+	    area_info.construction_name,
+	    area_info.area_type,
+	    area_info.construction_detail,
+	    area_info.facility_type,
+	    area_info.area_address,
+	    area_info.owner_name,
+	    area_info.owner_contact,
+	    area_info.supervisor_name,
+	    area_info.supervisor_contact,
+	    area_info.contractor_name,
+	    area_info.period_start,
+	    area_info.period_end,
+	    area_info.`status`,
+	    area_info.path_img,
+	    area_info.creation_datetime
+	from META.assignment_meta inner join META.area_info on assignment_meta.area_code = area_info.area_code
+	where assignment_meta.user_id = #{user_id} and assignment_meta.area_code = #{area_code}
+	</select>
+	
+	<select id = "assignmentAreaDetail" resultType = "Map">
+		select * from area_info where area_code = #{area_code}
+	</select>
+	
+	<select id = "AssignUserList" resultType = "com.meta.dto.AssignListDTO">
+		select * from assignment_meta where area_code = #{area_code}
+	</select>
+</mapper>

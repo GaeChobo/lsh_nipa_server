@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.RequestDAO">
+	<insert id = "RequestDrawing">
+		insert into request_preprocessing(
+			user_id,
+			area_code,
+			request_title,
+			request_status,
+			description,
+			path_drawing,
+			version_drawing
+			)
+		values(
+			#{user_id},
+			#{area_code},
+			#{request_title},
+			0,
+			#{description},
+			#{path_drawing},
+			#{version_drawing}
+			)
+	</insert>
+	
+	<update id = "UpdateAdminCheck">
+		update request_preprocessing set
+			request_status = 1,
+			update_datetime = #{update_datetime}
+		where version_drawing = #{version_drawing}
+	</update>
+	
+	<update id = "UpdateDrawingComplete">
+		update request_preprocessing set
+			request_status = 2,
+			path_csv = #{path_csv},
+			update_datetime = #{update_datetime}
+		where version_drawing = #{version_drawing}
+	</update>
+	
+	<update id = "UpdateCustomerCheck">
+		update request_preprocessing set
+			request_status = 3,
+			update_datetime = #{update_datetime}
+		where request_status = 2 and version_drawing = #{version_drawing}
+	</update>
+	
+	<select id = "ExistRequestVersion" resultType = "int">
+		select count(*) from request_preprocessing where version_drawing = #{version_drawing}
+	</select>
+	
+	<select id = "DrawingUserSelect" resultType = "Map">
+		select 
+			request_title,
+			request_status,
+			version_drawing
+		from request_preprocessing
+		where user_id = #{user_id} and area_code = #{area_code}
+	</select>
+	
+	<select id = "UserRequestNum" resultType = "int">
+		select count(*) from META.request_preprocessing where user_id = #{user_id} and area_code = #{area_code}
+	</select>
+	
+	<update id = "RequestinterferenceComplete">
+		update request_preprocessing set
+			request_status = 5,
+			update_datetime = #{update_datetime}
+		where version_drawing = #{version_drawing}
+	</update>
+	
+	<update id = "RequestVirtualComplete">
+		update request_preprocessing set
+			request_status = 6,
+			update_datetime = #{update_datetime}
+		where version_drawing = #{version_drawing}
+	</update>
+	
+	<select id = "CheckRequestVersion" resultType = "int">
+		select count(*) from request_preprocessing where version_drawing = #{version_drawing}
+	</select>
+	
+	<select id = "RequestCardList" resultType = "com.meta.dto.Request_resultDTO">
+		select 
+			request_preprocessing.version_drawing,
+			interference_detail.version_interference,
+			virtual_detail.version_virtual,
+			if(interference_final_drawing.version_interference is null, 0, 1) as final_interference,
+			if(virtual_final_path.version_virtual is null, 0 ,1) as final_virtual,
+			request_preprocessing.request_title,
+			request_preprocessing.request_status,
+			request_preprocessing.creation_datetime as request_creation_datetime,
+			request_preprocessing.path_drawing,
+			request_preprocessing.path_csv,
+			interference_detail.path_result_interference,
+			request_preprocessing.description,
+			request_preprocessing.update_datetime as request_update_datetime,
+			interference_detail.creation_datetime as interference_creation_datetime,
+			interference_detail.interference_point,
+			virtual_detail.virtual_title, 
+			virtual_detail.path_result_virtual,
+			virtual_detail.creation_datetime as virtual_creation_datetime,
+			virtual_detail.danger_point
+		from META.request_preprocessing
+		LEFT OUTER join META.interference_detail on META.interference_detail.version_drawing  = META.request_preprocessing.version_drawing
+		LEFT OUTER join META.interference_final_drawing on META.interference_final_drawing.version_interference  = META.interference_detail.version_interference
+		LEFT OUTER join META.virtual_detail on META.virtual_detail.version_drawing = META.request_preprocessing.version_drawing
+		LEFT OUTER join META.virtual_final_path on META.virtual_final_path.version_virtual = META.virtual_detail.version_virtual
+		where request_preprocessing.user_id = #{user_id} and request_preprocessing.area_code = #{area_code}
+	</select>
+	
+	<update id = "DeleteRequestUpdate">
+		update request_preprocessing set
+			request_status = 4,
+			update_datetime = #{update_datetime}
+		where version_drawing = #{version_drawing} and user_id = #{user_id} and area_code = #{area_code}
+	</update>
+
+	<select id = "interferenceDetailResult"	resultType = "com.meta.dto.Request_resultDTO">
+		select
+			request_preprocessing.request_title,
+			interference_detail.version_interference,
+			if(interference_final_drawing.version_interference is null, 0, 1) as final_interference
+		from request_preprocessing
+		LEFT OUTER join interference_detail on interference_detail.version_drawing = request_preprocessing.version_drawing 
+		LEFT OUTER join interference_final_drawing on interference_final_drawing.version_interference  = interference_detail.version_interference
+		where interference_detail.version_interference  = #{version_interference} and interference_detail.user_id = #{user_id} and interference_detail.area_code = #{area_code}
+	</select>
+	
+	<select id = "interferenceDetailLocation" resultType = "com.meta.dto.Interference_locationDTO">
+		select
+			x,
+			y,
+			z
+		from interference_location
+		where version_interference = #{version_interference};
+	</select>
+	
+	<select id = "VirtualDetailResult" resultType = "com.meta.dto.Request_resultDTO">
+		SELECT
+			request_preprocessing.request_title,
+			virtual_detail.version_virtual,
+			virtual_detail.virtual_title,
+			if(virtual_final_path.version_virtual  is null, 0, 1) as final_virtual
+		from virtual_detail
+		LEFT OUTER join request_preprocessing on virtual_detail.version_drawing = request_preprocessing.version_drawing
+		LEFT OUTER join virtual_final_path on virtual_final_path.version_virtual = virtual_detail.version_virtual
+		where virtual_detail.version_virtual = #{version_virtual} and virtual_detail.user_id = #{user_id} and virtual_detail.area_code = #{area_code} and request_preprocessing.version_drawing = #{version_drawing}
+	</select>
+	
+	<select id = "VirtualDetailLocation" resultType = "com.meta.dto.VirtualLocationDTO">
+		select
+			x,
+			y,
+			z,
+			location,
+			width
+		from virtual_location
+		where version_virtual = #{version_virtual}
+	</select>
+</mapper>

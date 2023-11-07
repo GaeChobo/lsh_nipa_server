@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.SensorNotificationDAO">
+	
+	<select id = "warningSensor" resultType = "com.meta.dto.SensorNotificaitonDTO">
+		select * from META.notification_sensor where title Like '%경고3단계%'
+	</select>
+	
+	<select id = "AIwarningSensor" resultType = "com.meta.dto.SensorNotificaitonDTO">
+		select * from META.notification_sensor where notification_type = 1
+	</select>
+	
+	<select id = "warningCCTV" resultType = "com.meta.dto.SensorNotificaitonDTO">
+		select * from META.notification_sensor where title Like '%CCTV 이상 감지%'
+	</select>
+	
+	<select id = "warningDailyMessage" resultType = "com.meta.dto.SensorNotificaitonDTO">
+		select * from META.notification_sensor where DATE_FORMAT(creation_datetime, "%Y-%m-%d")  = CURDATE() 
+	</select>
+	
+	<update id = "NotificaitonUpdate">
+		update META.notification_sensor set
+			`read` = 1 where `no` = #{no} and target_user_id = #{target_user_id}
+	</update>
+	
+	<select id = "NotificationCount" resultType = "int">
+		select count(*) as new_notification from META.notification_sensor where target_user_id = #{target_user_id} and `read` = 0
+	</select>
+	
+	<select id = "NotificationList" resultType = "com.meta.dto.SensorNotificaitonDTO">
+		select 
+			`no`,
+			notification_type,
+			target_user_id,
+			message_type,
+			title,
+			contents,
+			sensor_name,
+			creation_datetime,
+			`read`
+		from META.notification_sensor where target_user_id = #{target_user_id}
+	</select>
+
+	<insert id = "RegisterSensorNotification">
+		insert into notification_sensor(
+			notification_type,
+			target_user_id,
+			message_type,
+			title,
+			contents,
+			sensor_name,
+			`read`
+		)
+		values(
+			0,
+			#{target_user_id},
+			0,
+			#{title},
+			#{contents},
+			#{sensor_name},
+			0
+		)
+	</insert>
+	
+	<insert id = "RegisterPredictNotification">
+		insert into notification_sensor(
+			notification_type,
+			target_user_id,
+			message_type,
+			title,
+			contents,
+			sensor_name,
+			`read`
+		)
+		values(
+			1,
+			#{target_user_id},
+			0,
+			#{title},
+			#{contents},
+			#{sensor_name},
+			0
+		)
+	</insert>
+	
+</mapper>

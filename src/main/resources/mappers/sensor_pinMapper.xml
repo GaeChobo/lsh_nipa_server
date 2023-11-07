@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.Sensor_pinDAO">
+	<insert id = "RegisterPinSensor">
+		insert into sensor_pin(
+			user_id,
+			area_code,
+			sensor_name,
+			pin
+		)
+		values(
+			#{user_id},
+			'mk_factory_ansan_1',
+			#{sensor_name},
+			1
+		)
+	</insert>
+	
+	<delete id = "DeletePinSensor">
+		delete from sensor_pin where user_id = #{user_id} and sensor_name = #{sensor_name}
+	</delete>
+	
+	<select id = "SelectListPin" resultType = "com.meta.dto.Sensor_pinDTO">
+		select sensor_name from sensor_pin where user_id = #{user_id}
+	</select>
+</mapper>

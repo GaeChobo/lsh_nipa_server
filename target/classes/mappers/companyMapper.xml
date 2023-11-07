@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.CompanyDAO">
+
+	<select id = "CompanyNameFind" resultType = "String">
+		select
+			company_name
+		from company_info
+		where company_admin = #{company_admin}
+	</select>
+
+	<insert id = "createNewCustomer">
+		insert into company_info(
+			company_name,
+			company_name_kr,
+			domain_name,
+			company_admin
+		)values(
+			#{company_name},
+			#{company_name_kr},
+			#{domain_name},
+			#{company_admin}
+		)
+	</insert>
+
+	<update id = "updateCustomerData">
+		update company_info set
+			company_name_kr = #{company_name_kr},
+			domain_name = #{domain_name}
+		where company_name = #{company_name}
+	</update>
+
+	<select id = "loadingCustomerData" resultType = "com.meta.dto.CompanyDTO">
+		select
+			company_name,
+			company_name_kr,
+			domain_name,
+			creation_datetime,
+			company_admin
+		from META.company_info
+	</select>
+
+	<select id = "DomainList" resultType = "com.meta.dto.AdminCompanyDTO">
+		select
+			company_name,
+			company_name_kr,
+			area_code,
+			company_admin,
+			domain_name
+		from META.company_info
+		where domain_name Like '%${domain_name}%'
+	</select>
+
+	<select id = "CompanyDomainList" resultType = "com.meta.dto.CompanyDTO">
+		select  
+			company_name_kr,
+			domain_name,
+			creation_datetime,
+			company_name
+		from company_info 
+	</select>
+	
+	<select id = "CompanyNameList" resultType = "String">
+		select
+			company_name
+		from company_info 
+	</select>
+	
+	<select id = "OverlapDomain" resultType = "String">
+		select company_name from company_info where domain_name = #{domain_name}
+	</select>
+	
+	<insert id = "RegisterDomain">
+		insert into company_info(
+			company_name,
+			company_name_kr,
+			domain_name
+		)
+		values(
+			#{company_name},
+			#{company_name_kr},
+			#{domain_name}
+		)
+	</insert>
+</mapper>

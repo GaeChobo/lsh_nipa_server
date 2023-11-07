@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meta.dao.CSensorDAO">
+	
+	
+	<select id = "AdminSensorSearch" resultType = "com.meta.dto.DefaultSensorDTO">
+		select
+			sensor_name,
+			area_code,
+			detection_target,
+			installation_date,
+			manufacturing_date,
+			model_name,
+			section_name,
+			case sensor.sensor_type 
+				when 0 then '가스 감지'
+				when 1 then '누액 감지'
+				when 2 then '불꽃 감지'
+				when 3 then 'CCTV'
+				when 4 then '외부'
+				when 5 then '복합기상센서'
+				when 6 then '복합PM센서'
+				when 7 then '복합대기센서'
+			END as `sensor_type`,
+			threshold_value,
+			x,
+			y,
+			z,
+			zone_name 
+		from META.sensor	
+		where sensor_name Like '%${sensor_name}%' and area_code = #{area_code}
+	</select>
+	
+	<select id = "AdminSensorList" resultType = "com.meta.dto.DefaultSensorDTO">
+		select
+			sensor_name,
+			area_code,
+			detection_target,
+			installation_date,
+			manufacturing_date,
+			model_name,
+			section_name,
+			case sensor.sensor_type 
+				when 0 then '가스 감지'
+				when 1 then '누액 감지'
+				when 2 then '불꽃 감지'
+				when 3 then 'CCTV'
+				when 4 then '외부'
+				when 5 then '복합기상센서'
+				when 6 then '복합PM센서'
+				when 7 then '복합대기센서'
+			END as `sensor_type`,
+			threshold_value,
+			x,
+			y,
+			z,
+			zone_name 
+		from META.sensor
+	</select>
+	
+	<delete id = "SensorDelete">
+		delete from META.sensor_data
+	</delete>
+	
+	<select id = "Read_Sensor_Data" resultType = "com.meta.dto.Result_SensorDTO">
+		select 
+			area_code,
+			sensor_name,
+			sensor_status,
+			`time`,
+			ss_full_id,
+			value,
+			(select detection_target  from META.sensor where sensor_name = #{sensor_name}) as detection_target
+		from META.sensor_data where sensor_name = #{sensor_name} order by `time` desc LIMIT 1
+	</select>
+	
+	
+	
+	<select id = "Zone_Secetion_Sensor_List" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where zone_name Like '%${zone_name}%' and section_name Like '%${section_name}%'
+	</select>
+	
+	<select id = "Gas_AC01G04" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#3-01-04)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AC01G01" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct distinct * from META.sensor_data where sensor_name = '외부-01(#3-01-01)' order by `time` desc LIMIT #{number_of_data}
+	</select>	
+
+	<select id = "Gas_AC01G02" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '외부-02(#3-01-02)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA10G03" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-03(#1-10-03)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA10G04" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-04(#1-10-04)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA12G03" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-12-03)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA12G05" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-12-05)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA12G06" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-12-06)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA12G07" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-12-07)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA12G01" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-01(#1-12-01)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA12G02" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-02(#1-12-02)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA14G05" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-05(#1-14-05)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA14G06" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-06(#1-14-06)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA14G07" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-07(#1-14-07)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA14G08" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-08(#1-14-08)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA14G09" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-14-09)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA15G01" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-15-01)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA15G02" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-W(#1-15-02)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA16G09" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-09(#1-16-09)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA16G10" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-10(#1-16-10)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA16G11" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-11(#1-16-11)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AA16G12" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-12(#1-16-12)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AB28G01" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-01(#2-28-01)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	<select id = "Gas_AB28G02" resultType = "com.meta.dto.GasSensorDTO"> 
+		select distinct * from META.sensor_data where sensor_name = '가스-02(#2-28-02)' order by `time` desc LIMIT #{number_of_data}
+	</select>
+	
+	
+	<!--  -->
+	
+	<select id = "OneSensorList" resultType = "com.meta.dto.Result_SensorDTO">
+		select  
+			area_code,
+			sensor_name,
+			sensor_status,
+			`time` ,
+			ss_full_id ,
+			value ,
+			(select detection_target from META.sensor where sensor_name = #{sensor_name}) as detection_target,
+			(select section_name from META.sensor where sensor_name = #{sensor_name}) as section_name,
+			(select sensor_type from META.sensor where sensor_name = #{sensor_name}) as sensor_type
+		from META.sensor_data where sensor_name = #{sensor_name} order by `time` desc LIMIT 1
+	</select>
+
+	<select id = "DectionTargetFind" resultType = "String">
+		select detection_target from META.sensor where model_name = #{ss_full_id}
+	</select>
+
+	<select id = "SensorGraphList" resultType ="com.meta.dto.Result_SensorDTO">
+		select distinct * from META.sensor_data where sensor_name = #{sensor_name} order by `time` desc LIMIT 500
+	</select>
+
+	<select id = "Read_AD37C01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'CCTV(#4-37-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA10C01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'CCTV(불꽃감지(ZONE #1))' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37B05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'H2S-복합대기(#4-37-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37B03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'NH3-복합대기(#4-37-03)' order by `time` desc LIMIT 1
+	</select>		
+
+	<select id = "Read_AD37B01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'PM10-복합PM(#4-37-01)' order by `time` desc LIMIT 1
+	</select>	
+
+	<select id = "Read_AD37B02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'PM2.5-복합PM(#4-37-02)' order by `time` desc LIMIT 1
+	</select>	
+
+	<select id = "Read_AD37B04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = 'VOC-복합대기(#4-37-04)' order by `time` desc  LIMIT 1
+	</select>
+
+	<select id = "Read_AA12G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-01(#1-12-01)' order by `time` desc  LIMIT 1
+	</select>
+
+	<select id = "Read_AB28G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-01(#2-28-01)' order by `time` desc  LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-02(#1-12-02)' order by `time` desc LIMIT 1
+	</select>	
+
+	<select id = "Read_AB28G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-02(#2-28-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA10G03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-03(#1-10-03)' order by `time` desc LIMIT 1
+	</select>				
+	
+	<select id = "Read_AA10G04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-04(#1-10-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA14G05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-05(#1-14-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA14G06" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-06(#1-14-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA14G07" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-07(ZONE #1)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA14G08" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-08(#1-14-08)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16G09" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-09(#1-16-09)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16G10" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-10(#1-16-10)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16G11" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-11(#1-16-11)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16G12" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-12(#1-16-12)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12G03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-12-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12G05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-12-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12G06" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-12-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12G07" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-12-07)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA14G09" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-14-09)' order by `time` desc LIMIT 1
+	</select>
+
+	<select id = "Read_AA15G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-15-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA15G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#1-15-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC01G04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#3-01-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD35G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-35-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD35G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-35-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD35G03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-35-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD35G04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-35-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD36G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-36-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD36G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-36-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD36G03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-36-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD36G04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-36-04)' order by `time` desc LIMIT 1
+	</select>	
+	
+	<select id = "Read_AD37G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-37-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-37-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37G03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-37-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37G04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '가스-W(#4-37-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37A06" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '강우-복합기상(#4-37-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37A05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '기압-복합기상(#4-37-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12L01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-01(#1-12-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB23L01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-01(#2-23-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC01L01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-01(#3-01-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12L02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-02(#1-12-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB23L02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-02(#2-23-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC01L02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-02(#3-01-02)' order by `time` desc LIMIT 1
+	</select>																																														
+	
+	<select id = "Read_AA14L03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-03(#1-14-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB23L03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-03(#2-23-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC01L03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-03(#3-01-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-04(#1-16-14)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB23L04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-04(#2-23-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC01L04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-04(#3-01-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-05(#1-16-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB23L12" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-05(#2-23-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB24L05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-05(#2-24-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L06" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-06(#1-16-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB23L13" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-06(#2-23-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB24L06" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-06(#2-24-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L07" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-07(#1-16-07)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB24L07" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-07(#2-24-07)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L08" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-08(#1-16-08)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB24L08" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-08(#2-24-08)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L09" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-09(#1-16-09)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB24L09" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-09(#2-24-09)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA16L10" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-10(#1-16-10)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB31L10" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-10(#2-31-10)' order by `time` desc LIMIT 1
+	</select>	
+
+	<select id = "Read_AA16L11" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-11(#1-16-11)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB31L11" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-11(#2-31-11)' order by `time` desc LIMIT 1
+	</select>	
+	
+	<select id = "Read_AA16L12" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-12(#1-16-12)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA15L13" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-13(#1-15-13)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA15L14" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-14(#1-15-14)' order by `time` desc LIMIT 1
+	</select>	
+	
+	<select id = "Read_AB27L14" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-14(#2-27-14)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA15L15" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-15(#1-15-15)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27L15" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-15(#2-27-15)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA15L16" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-16(#1-15-16)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB32L16" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-16(#2-32-16)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA15L17" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-17(#1-15-17)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB32L17" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-17(#2-32-17)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA20L18" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-18(#1-20-18)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB28L18" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-18(#2-28-18)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA14L19" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-19(#1-14-19)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB28L19" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-19(#2-28-19)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12L20" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-20(#1-12-20)' order by `time` desc LIMIT 1
+	</select>		
+	
+	<select id = "Read_AB28L20" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-20(#2-28-20)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB28L21" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-21(#2-28-21)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27L22" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-22(#2-27-22)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27L23" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-23(#2-27-23)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27L24" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-24(#2-27-24)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27L25" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-25(#2-27-25)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB22L01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#2-22-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB22L02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#2-22-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB22L03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#2-22-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB22L04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#2-22-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB22L05" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#2-22-05)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27L21" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#2-27-21)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC08L01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#3-08-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC08L02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '누액-W(#3-08-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA10L01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '방폭누액-01(#1-10-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA10L02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '방폭누액-02(#1-10-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA10F06" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '불꽃-W(#1-10-06)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37A02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '습도-복합기상(#4-37-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37A01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '온도-복합기상(#4-37-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12P01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-01(#1-12-01)' order by `time` desc LIMIT 1
+	</select>	
+	
+	<select id = "Read_AB31P01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-01(#2-31-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AC01G01" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-01(#3-01-01)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA12P02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-02(#1-12-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AB27P02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-02(#2-27-02)' order by `time` desc LIMIT 1
+	</select>	
+
+	<select id = "Read_AC01G02" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-02(#3-01-02)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AA10P03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '외부-03(#1-10-03)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37A04" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '풍속-복합기상(#4-37-04)' order by `time` desc LIMIT 1
+	</select>
+	
+	<select id = "Read_AD37A03" resultType = "com.meta.dto.Mv_SensorDTO">
+		select * from META.sensor_data where sensor_name = '풍향-복합기상(#4-37-03)' order by `time` desc LIMIT 1
+	</select>																																																															
+	<!--  -->
+
+
+	<insert id = "RSensorDataInsert">
+		insert into META.sensor_data(
+			area_code,
+			sensor_name,
+			sensor_status,
+			time,
+			value,
+			ss_full_id
+		) values(
+			'mk_factory_ansan_1',
+			#{sensor_name},
+			#{sensor_status},
+			#{time},
+			#{value},
+			#{ss_full_id}
+		)
+	</insert>
+
+	<!-- ZONE4 -->
+	<select id = "Zone4_List_1" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION35';
+	</select>
+	
+	<select id = "Zone4_List_2" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION36';
+	</select>
+
+	<select id = "Zone4_List_3" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION37';
+	</select>
+
+	<!-- ZONE3 -->
+	<select id = "Zone3_List_1" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION01';
+	</select>
+	
+	<select id = "Zone3_List_2" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION08';
+	</select>
+	
+	<!-- ZONE2 -->
+	<select id = "Zone2_List_1" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION22';
+	</select>
+
+	<select id = "Zone2_List_2" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION23';
+	</select>
+
+	<select id = "Zone2_List_3" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION24';
+	</select>
+
+	<select id = "Zone2_List_4" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION27';
+	</select>
+
+	<select id = "Zone2_List_5" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION28';
+	</select>
+
+	<select id = "Zone2_List_6" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION31';
+	</select>
+
+	<select id = "Zone2_List_7" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION32';
+	</select>
+
+	<!-- ZONE1 -->
+	<select id = "Zone1_List_1" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION10';
+	</select>
+	
+	<select id = "Zone1_List_2" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION12';
+	</select>	
+
+	<select id = "Zone1_List_3" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION14';
+	</select>	
+
+	<select id = "Zone1_List_4" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION15';
+	</select>	
+
+	<select id = "Zone1_List_5" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION16';
+	</select>	
+	
+	<select id = "Zone1_List_6" resultType = "com.meta.dto.CSensorDTO">
+		select * from META.sensor where section_name = 'SECTION20';
+	</select>		
+</mapper>
